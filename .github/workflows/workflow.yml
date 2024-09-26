@@ -1,0 +1,67 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  compliance:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Project Analysis
+        run: echo "Stage compliance"
+
+  build:
+    runs-on: ubuntu-latest
+    needs: compliance
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Function Build
+        run: echo "Stage build"
+
+  qualityAnalysis:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: SonarQube
+        run: echo "Stage quality"
+
+  qualityGate:
+    runs-on: ubuntu-latest
+    needs: qualityAnalysis
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Quality Gate
+        run: echo "Stage qualityGate"
+
+  artifactsUpload:
+    runs-on: ubuntu-latest
+    needs: 
+      - build
+      - qualityGate
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Artifacts Upload
+        run: echo "Stage artifactsUpload"
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: 
+      - build
+      - artifactsUpload
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Function Deploy
+        run: echo "Stage deploy"
