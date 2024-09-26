@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4.2.0
       - name: Project Analysis
         run: echo "Stage compliance"
 
@@ -22,7 +22,7 @@ jobs:
     needs: compliance
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4.2.0
       - name: Function Build
         run: echo "Stage build"
 
@@ -31,7 +31,7 @@ jobs:
     needs: build
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4.2.0
       - name: SonarQube
         run: echo "Stage quality"
 
@@ -40,7 +40,7 @@ jobs:
     needs: qualityAnalysis
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4.2.0
       - name: Quality Gate
         run: echo "Stage qualityGate"
 
@@ -51,7 +51,7 @@ jobs:
       - qualityGate
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4.2.0
       - name: Artifacts Upload
         run: echo "Stage artifactsUpload"
 
@@ -62,6 +62,6 @@ jobs:
       - artifactsUpload
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4.2.0
       - name: Function Deploy
         run: echo "Stage deploy"
